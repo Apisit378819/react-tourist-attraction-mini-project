@@ -1,7 +1,14 @@
+import './index.css';
 import "./App.css";
+import { SearchBar, DestinationCard } from './components/WebSection';
 
 function App() {
-  return <div className="App">{/* Start coding here */}</div>;
+  return (
+    <>
+    <SearchBar/>
+    <DestinationCard/>
+    </>
+  )
 }
 
 export default App;
