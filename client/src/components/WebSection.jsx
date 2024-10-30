@@ -16,7 +16,7 @@ export function SearchBar() {
         `http://localhost:4001/trips?keywords=${searchTerm}`
       );
       setdestinations(response.data.data);
-      console.log(response.data.data);
+    //   console.log(response.data.data);
     } catch (error) {
       console.error("Error fetching destinations:", error);
     }
@@ -45,9 +45,10 @@ export function SearchBar() {
         <section className="space-y-4 mt-6">
           {destinations.map((destination) => (
             <DestinationCard
-              key={destination.eid}
+              keyId={destination.eid}
               title={destination.title}
               description={destination.description}
+              photo={destination.photos[0]}
               photos={destination.photos}
               url={destination.url}
               tags={destination.tags}
@@ -59,11 +60,13 @@ export function SearchBar() {
     </>
   );
 }
-export function DestinationCard({ title, description, photos, url , tags , onTagClick}) {
-  return (
-    <div className="bg-white rounded-lg shadow p-4 flex gap-4 mb-4">
+export function DestinationCard({ title, description, photos, url , tags , onTagClick , photo , keyId}) {
+    if (!title || !description || !photos || photos.length === 0) return null
+  return ( 
+    <div className="bg-white rounded-lg shadow p-4 flex gap-4 mb-4" >
       <img
-        src={photos && photos.length > 0 ? photos[0] : null} // ใช้รูปภาพแรกจาก Array
+        
+        src={photo}
         alt=""
         className="w-80 h-60 rounded-lg object-cover"
       />
@@ -109,10 +112,10 @@ export function DestinationCard({ title, description, photos, url , tags , onTag
         alt=""
         className="w-20 h-20 rounded-lg object-cover"
       /> */}
-    {photos && photos.slice(1, 4).map((photo, index) => (
+    {photos && photos.slice(1).map((photo, index) => (
             <img
-              key={index}
-              src={photo || "https://via.placeholder.com/80"} // ใช้ Placeholder หากไม่มีรูปภาพ
+              key={keyId}
+              src={photo } // ใช้ Placeholder หากไม่มีรูปภาพ
               alt=""
               className="w-20 h-20 rounded-lg object-cover"
             />
